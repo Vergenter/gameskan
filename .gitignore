@@ -1,2 +1,3 @@
-packed.atlas
-packed_sa.atlas
+packed.*
+packed_sa.*
+/output/*
