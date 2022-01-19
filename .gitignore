@@ -1,4 +1,8 @@
 packed.*
 packed_sa.*
 /output/*
+/assets/*
+/.history
+*.pyc
+/.vscode
 gameskanVenv

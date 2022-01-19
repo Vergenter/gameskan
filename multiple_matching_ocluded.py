@@ -5,17 +5,17 @@ import utils
 
 
 templates_path = [
-    "output/tile_base.png",
-    "output/tile_liquid.2.png",
-    "output/tile_floor.1.png",
-    "output/tile_liquid.3.png",
-    "output/tile_floor.2.png",
-    "output/tile_liquid_large.1.png",
-    "output/tile_floor_large.1.png",
-    "output/tile_liquid_large.2.png",
-    "output/tile_floor_large.2.png",
-    "output/tile_liquid_large.3.png",
-    "output/tile_liquid.1.png"
+    "assets/tile_base.png",
+    "assets/tile_liquid.2.png",
+    "assets/tile_floor.1.png",
+    "assets/tile_liquid.3.png",
+    "assets/tile_floor.2.png",
+    "assets/tile_liquid_large.1.png",
+    "assets/tile_floor_large.1.png",
+    "assets/tile_liquid_large.2.png",
+    "assets/tile_floor_large.2.png",
+    "assets/tile_liquid_large.3.png",
+    "assets/tile_liquid.1.png"
     ]
 def scale_image(scale):
     def f(img):
