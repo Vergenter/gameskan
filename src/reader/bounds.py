@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from functools import cached_property
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class Bounds:
     """Class to specify bounds of items"""
     box_x: int = 0

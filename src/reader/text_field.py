@@ -1,14 +1,14 @@
 from dataclasses import dataclass
 from functools import cached_property
 
-from src.reader.bounds import Bounds
+from reader.bounds import Bounds
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True)
 class TextField:
     """Class for keeping track of an item in inventory."""
-    text: str = ""
     bounds: Bounds
+    text: str = ""
 
     @cached_property
     def __hash__(self):
