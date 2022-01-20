@@ -1,6 +1,7 @@
-from reader.ocr_backend import OCRBackend
-from reader.ocr_backend import Bounds
+from ocr_backend import OCRBackend
+from ocr_backend import Bounds
 from reader.text_field import TextField
+from PIL.Image import Image
 
 from tesserocr import PyTessBaseAPI, RIL #https://github.com/sirfz/tesserocr/blob/master/tesserocr.pyx
 
@@ -9,7 +10,7 @@ class OCR(OCRBackend):
     def __init__(self) -> None:
         pass
 
-    def read_text(self, img, bounds: Bounds = None) -> set[TextField]:
+    def read_text(self, img: Image, bounds: Bounds = None) -> set[TextField]:
         tmp = []
         with PyTessBaseAPI(lang='eng+pol') as api:
             api.SetImage(img)
@@ -26,9 +27,13 @@ class OCR(OCRBackend):
 
 
 # from PIL import Image
+# import cv2 as cv
 # img_path = 'screens/1080x2310/mainmenu.jpg'
 # img_pil = Image.open(img_path)
+# print(img_pil)
+# img = cv.imread(img_path)
+# img = cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
 # ocr = OCR()
-# test = ocr.read_text(img_pil)
+# test = ocr.read_text(img)
 # print(test)
