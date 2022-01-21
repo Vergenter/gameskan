@@ -1,9 +1,11 @@
-from typing import Protocol
+from typing import Protocol, Optional
 from abc import abstractmethod
 from model.bounds import Bounds
-from PIL.Image import Image
+from model.image import Image
 from numpy import ndarray
 
-class OIRBackend(Protocol):
+
+class IOIRBackend(Protocol):
     @abstractmethod
-    def show(self, img: ndarray, asset: ndarray) -> Bounds: raise NotImplementedError
+    def match_asset(self, img: Image,
+             asset: ndarray, threshold: Optional[float]) -> list[Bounds]: raise NotImplementedError

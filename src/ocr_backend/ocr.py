@@ -1,29 +1,32 @@
-from ocr_backend import OCRBackend
-from ocr_backend import Bounds
-from reader.text_field import TextField
-from PIL.Image import Image
+from Iocr_backend import OCRBackend
+from model import Bounds
+from text_field import TextField
+from model.image import Image
 
-from tesserocr import PyTessBaseAPI, RIL #https://github.com/sirfz/tesserocr/blob/master/tesserocr.pyx
+# https://github.com/sirfz/tesserocr/blob/master/tesserocr.pyx
+from tesserocr import PyTessBaseAPI, RIL
+
 
 class OCR(OCRBackend):
-    
+
     def __init__(self) -> None:
         pass
 
-    def read_text(self, img: Image, bounds: Bounds = None) -> set[TextField]:
-        tmp = []
-        with PyTessBaseAPI(lang='eng+pol') as api:
-            api.SetImage(img)
-            boxes = api.GetComponentImages(RIL.TEXTLINE, True) # TEXTLINE, WORD, SYMBOL, PARA, BLOCK
+    def get_text(self, img: Image, bounds: Bounds = None, lang: str = 'eng') -> set[TextField]:
+        result = []
+        with PyTessBaseAPI(lang=lang) as api:
+            api.SetImage(img.pilImage)
+            # TEXTLINE, WORD, SYMBOL, PARA, BLOCK
+            boxes = api.GetComponentImages(RIL.TEXTLINE, True)
             for i, (im, box, _, _) in enumerate(boxes):
                 if bounds:
-                    api.SetRectangle(bounds.box_x, bounds.box_y, bounds.box_x_len, bounds.box_y_len)
-                else: 
+                    api.SetRectangle(bounds.box_x, bounds.box_y,
+                                     bounds.box_x_len, bounds.box_y_len)
+                else:
                     api.SetRectangle(box['x'], box['y'], box['w'], box['h'])
                 ocrResult = api.GetUTF8Text()
-                tmp.append(ocrResult)
-        return set(tmp)
-
+                result.append(ocrResult)
+        return result
 
 
 # from PIL import Image
