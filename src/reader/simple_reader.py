@@ -1,11 +1,9 @@
-from typing import Protocol
-from abc import abstractmethod
+from reader.Ireader import Ireader
 from model.image import Image
 from structure.screen import Screen, ScreenResult
 
 
-class Ireader(Protocol):
-    @abstractmethod
+class SimpleReader(Ireader):
     def read(
             self, img: Image, screens: list[Screen]) -> list[ScreenResult]:
-        raise NotImplementedError
+        return [screen.map(img) for screen in screens if screen.indentify(img)]

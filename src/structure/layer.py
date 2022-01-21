@@ -1,9 +1,15 @@
 from dataclasses import dataclass
-from structure.component import Component
+from structure.component import Component, ComponentResult
+from model.image import Image
+from operator import methodcaller
 
 
-@dataclass(frozen=True)
 class Layer:
-    components:list[Component]
-    is_tranparent:bool
-    is_optional:bool
+    def __init__(self, components: list[Component]):
+        self.components = components
+
+    # is_tranparent: bool
+    # is_optional: bool
+
+    def map(self, image: Image) -> list[ComponentResult]:
+        return [component.map(image) for component in self.components]

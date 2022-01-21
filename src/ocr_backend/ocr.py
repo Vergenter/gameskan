@@ -1,18 +1,18 @@
-from Iocr_backend import OCRBackend
-from model import Bounds
-from text_field import TextField
+from ocr_backend.Iocr_backend import IOCRBackend
+from model.bounds import Bounds
+from ocr_backend.text_field import TextField
 from model.image import Image
 
 # https://github.com/sirfz/tesserocr/blob/master/tesserocr.pyx
 from tesserocr import PyTessBaseAPI, RIL
 
 
-class OCR(OCRBackend):
+class OCR(IOCRBackend):
 
     def __init__(self) -> None:
         pass
 
-    def get_text(self, img: Image, bounds: Bounds = None, lang: str = 'eng') -> set[TextField]:
+    def get_text(self, img: Image, bounds: Bounds = None, lang: str = 'eng+pl') -> set[TextField]:
         result = []
         with PyTessBaseAPI(lang=lang) as api:
             api.SetImage(img.pilImage)
@@ -26,7 +26,7 @@ class OCR(OCRBackend):
                     api.SetRectangle(box['x'], box['y'], box['w'], box['h'])
                 ocrResult = api.GetUTF8Text()
                 result.append(ocrResult)
-        return result
+        return [TextField(bounds, res) for res in result]
 
 
 # from PIL import Image

@@ -2,7 +2,7 @@ from typing import Optional, Protocol
 from abc import abstractmethod
 from model.bounds import Bounds
 from model.image import Image
-from text_field import TextField
+from ocr_backend.text_field import TextField
 
 
 class IOCRBackend(Protocol):
